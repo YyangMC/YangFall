@@ -1,0 +1,625 @@
+From 6f08a06dd6c6a47ca47003994b6bafc6297c03b4 Mon Sep 17 00:00:00 2001
+From: IzzelAliz <csh2001331@126.com>
+Date: Sun, 7 Mar 2021 19:26:00 +0800
+Subject: [PATCH] Change brand to lightfall
+
+
+diff --git a/api/pom.xml b/api/pom.xml
+index 0680a5a5..ecb67cb3 100644
+--- a/api/pom.xml
++++ b/api/pom.xml
+@@ -4,42 +4,47 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+     <artifactId>waterfall-api</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-API</name>
++    <name>lightfall-API</name>
+     <description>API implemented by the Elastic Portal Suite</description>
+ 
++    <repositories>
++        <repository>
++            <id>IzzelAliz</id>
++            <url>https://maven.izzel.io/releases</url>
++        </repository>
++    </repositories>
+     <dependencies>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-chat</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-chat</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-config</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-config</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-event</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-event</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-protocol</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-protocol</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+@@ -82,5 +87,11 @@
+             <artifactId>slf4j-api</artifactId>
+             <version>1.7.25</version>
+         </dependency>
++        <!-- lightfall - Add API -->
++        <dependency>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-api</artifactId>
++            <version>1.0.0</version>
++        </dependency>
+     </dependencies>
+ </project>
+diff --git a/bootstrap/pom.xml b/bootstrap/pom.xml
+index 7a9e8258..1dc17920 100644
+--- a/bootstrap/pom.xml
++++ b/bootstrap/pom.xml
+@@ -4,19 +4,18 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-bootstrap</artifactId>
++    <artifactId>lightfall-bootstrap</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-Bootstrap</name>
+-    <description>Java 1.6 loader for Waterfall</description>
++    <name>lightfall-Bootstrap</name>
++    <description>Java 1.6 loader for lightfall</description>
+ 
+     <properties>
+         <maven.deploy.skip>true</maven.deploy.skip>
+@@ -29,15 +28,15 @@
+ 
+     <dependencies>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-proxy</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-proxy</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+     </dependencies>
+ 
+     <build>
+-        <finalName>Waterfall</finalName>
++        <finalName>lightfall</finalName>
+         <plugins>
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+diff --git a/bootstrap/src/main/java/net/md_5/bungee/Bootstrap.java b/bootstrap/src/main/java/net/md_5/bungee/Bootstrap.java
+index a4516ed9..1bb5dbce 100644
+--- a/bootstrap/src/main/java/net/md_5/bungee/Bootstrap.java
++++ b/bootstrap/src/main/java/net/md_5/bungee/Bootstrap.java
+@@ -7,7 +7,7 @@ public class Bootstrap
+     {
+         if ( Float.parseFloat( System.getProperty( "java.class.version" ) ) < 52.0 )
+         {
+-            System.err.println( "*** ERROR *** Waterfall requires Java 8 or above to function! Please download and install it!" );
++            System.err.println( "*** ERROR *** lightfall requires Java 8 or above to function! Please download and install it!" );
+             System.out.println( "You can check your Java version with the command: java -version" );
+             return;
+         }
+diff --git a/chat/pom.xml b/chat/pom.xml
+index cfa0e16e..67a0e17e 100644
+--- a/chat/pom.xml
++++ b/chat/pom.xml
+@@ -4,18 +4,17 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-chat</artifactId>
++    <artifactId>lightfall-chat</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-Chat</name>
++    <name>lightfall-Chat</name>
+     <description>Minecraft JSON chat API intended for use with Waterfall</description>
+ 
+     <dependencies>
+diff --git a/config/pom.xml b/config/pom.xml
+index 67e2500f..cb00f988 100644
+--- a/config/pom.xml
++++ b/config/pom.xml
+@@ -4,18 +4,17 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-config</artifactId>
++    <artifactId>lightfall-config</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-Config</name>
++    <name>lightfall-Config</name>
+     <description>Generic java configuration API intended for use with Waterfall</description>
+ 
+     <dependencies>
+diff --git a/event/pom.xml b/event/pom.xml
+index 563783e9..7d93f3a5 100644
+--- a/event/pom.xml
++++ b/event/pom.xml
+@@ -4,17 +4,16 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-event</artifactId>
++    <artifactId>lightfall-event</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-Event</name>
+-    <description>Generic java event dispatching API intended for use with Waterfall.</description>
++    <name>lightfall-Event</name>
++    <description>Generic java event dispatching API intended for use with lightfall.</description>
+ </project>
+diff --git a/log/pom.xml b/log/pom.xml
+index 3663d6d9..deb1b5be 100644
+--- a/log/pom.xml
++++ b/log/pom.xml
+@@ -4,18 +4,17 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-log</artifactId>
++    <artifactId>lightfall-log</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-Log</name>
++    <name>lightfall-Log</name>
+     <description>Simplistic and performant java.util.Logger based logger and console API designed for use with Waterfall and Minecraft related applications.</description>
+ 
+     <dependencies>
+@@ -26,8 +25,8 @@
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-chat</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-chat</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+diff --git a/log4j/pom.xml b/log4j/pom.xml
+index 7ec6e530..33f9cfdc 100644
+--- a/log4j/pom.xml
++++ b/log4j/pom.xml
+@@ -3,18 +3,17 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-log4j</artifactId>
++    <artifactId>lightfall-log4j</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-Log</name>
++    <name>lightfall-Log</name>
+     <description>Simplistic and performant Log4j2 based logger and console API designed for use with Waterfall and Minecraft related applications.</description>
+ 
+     <properties>
+diff --git a/module/pom.xml b/module/pom.xml
+index 0ef98d58..a991abf8 100644
+--- a/module/pom.xml
++++ b/module/pom.xml
+@@ -4,8 +4,8 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+@@ -15,7 +15,7 @@
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>pom</packaging>
+ 
+-    <name>Waterfall Modules</name>
++    <name>lightfall Modules</name>
+     <description>Parent project for all Waterfall modules.</description>
+ 
+     <modules>
+@@ -35,7 +35,7 @@
+ 
+     <dependencies>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
++            <groupId>io.izzel.lightfall</groupId>
+             <artifactId>waterfall-api</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+diff --git a/native/pom.xml b/native/pom.xml
+index 652a869d..8c983ee9 100644
+--- a/native/pom.xml
++++ b/native/pom.xml
+@@ -4,18 +4,17 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-native</artifactId>
++    <artifactId>lightfall-native</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-Native</name>
++    <name>lightfall-Native</name>
+     <description>Optional native code to speed up and enhance Waterfall functionality.</description>
+ 
+     <dependencies>
+diff --git a/pom.xml b/pom.xml
+index 8d86e36c..9a06c1ac 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -4,24 +4,23 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-super</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-super</artifactId>
+         <version>dev-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-parent</artifactId>
++    <artifactId>lightfall-parent</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>pom</packaging>
+ 
+-    <name>Waterfall-Parent</name>
+-    <description>Parent project for all Waterfall modules.</description>
+-    <url>https://github.com/WaterfallMC/Waterfall</url>
+-    <inceptionYear>2015</inceptionYear>
++    <name>lightfall-Parent</name>
++    <description>Parent project for all lightfall modules.</description>
++    <url>https://github.com/ArclightPowered/lightfall</url>
++    <inceptionYear>2021</inceptionYear>
+     <organization>
+-        <name>WaterfallMC</name>
+-        <url>https://github.com/WaterfallMC</url>
++        <name>ArclightPowered</name>
++        <url>https://github.com/ArclightPowered</url>
+     </organization>
+     <licenses>
+         <license>
+@@ -47,6 +46,9 @@
+         <developer>
+             <id>fuzzybot</id>
+         </developer>
++        <developer>
++            <id>IzzelAliz</id>
++        </developer>
+     </developers>
+ 
+     <modules>
+@@ -66,13 +68,13 @@
+     </modules>
+ 
+     <scm>
+-        <connection>scm:git:git@github.com:com:WaterfallMC/Waterfall.git</connection>
+-        <developerConnection>scm:git:git@github.com:WaterfallMC/Waterfall.git</developerConnection>
+-        <url>git@github.com:WaterfallMC/Waterfall.git</url>
++        <connection>scm:git:git@github.com:com:ArclightPowered/lightfall.git</connection>
++        <developerConnection>scm:git:git@github.com:ArclightPowered/lightfall.git</developerConnection>
++        <url>git@github.com:ArclightPowered/lightfall.git</url>
+     </scm>
+     <issueManagement>
+         <system>GitHub</system>
+-        <url>https://github.com/PaperMC/Waterfall/issues</url>
++        <url>https://github.com/ArclightPowered/lightfall/issues</url>
+     </issueManagement>
+ 
+     <distributionManagement>
+diff --git a/protocol/pom.xml b/protocol/pom.xml
+index dbc0a3ab..a0f912c5 100644
+--- a/protocol/pom.xml
++++ b/protocol/pom.xml
+@@ -4,18 +4,17 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-protocol</artifactId>
++    <artifactId>lightfall-protocol</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-Protocol</name>
++    <name>lightfall-Protocol</name>
+     <description>Minimal implementation of the Minecraft protocol for use in Waterfall</description>
+ 
+     <!-- We really shouldn't depend on external repositories, but at least this is the Central staging one -->
+@@ -41,8 +40,8 @@
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-chat</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-chat</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+diff --git a/proxy/pom.xml b/proxy/pom.xml
+index c3a2eeb6..fc6de463 100644
+--- a/proxy/pom.xml
++++ b/proxy/pom.xml
+@@ -4,18 +4,17 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-proxy</artifactId>
++    <artifactId>lightfall-proxy</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-Proxy</name>
++    <name>lightfall-Proxy</name>
+     <description>Proxy component of the Elastic Portal Suite</description>
+ 
+     <properties>
+@@ -64,32 +63,32 @@
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
++            <groupId>io.izzel.lightfall</groupId>
+             <artifactId>waterfall-api</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-log4j</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-log4j</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-native</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-native</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-protocol</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-protocol</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
+-            <artifactId>waterfall-query</artifactId>
++            <groupId>io.izzel.lightfall</groupId>
++            <artifactId>lightfall-query</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+         </dependency>
+diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
+index c7b0ab25..59fda993 100644
+--- a/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
++++ b/proxy/src/main/java/net/md_5/bungee/BungeeCord.java
+@@ -539,7 +539,7 @@ public class BungeeCord extends ProxyServer
+     @Override
+     public String getName()
+     {
+-        return "Waterfall";
++        return "lightfall";
+     }
+ 
+     @Override
+diff --git a/proxy/src/main/java/net/md_5/bungee/BungeeCordLauncher.java b/proxy/src/main/java/net/md_5/bungee/BungeeCordLauncher.java
+index 35680528..9bf9054b 100644
+--- a/proxy/src/main/java/net/md_5/bungee/BungeeCordLauncher.java
++++ b/proxy/src/main/java/net/md_5/bungee/BungeeCordLauncher.java
+@@ -76,7 +76,7 @@ public class BungeeCordLauncher
+ 
+         BungeeCord bungee = new BungeeCord();
+         ProxyServer.setInstance( bungee );
+-        bungee.getLogger().info( "Enabled Waterfall version " + bungee.getVersion() );
++        bungee.getLogger().info( "Enabled lightfall version " + bungee.getVersion() );
+         bungee.start();
+ 
+         if ( !options.has( "noconsole" ) )
+diff --git a/proxy/src/main/java/net/md_5/bungee/command/CommandBungee.java b/proxy/src/main/java/net/md_5/bungee/command/CommandBungee.java
+index b26035cf..d7d0ed58 100644
+--- a/proxy/src/main/java/net/md_5/bungee/command/CommandBungee.java
++++ b/proxy/src/main/java/net/md_5/bungee/command/CommandBungee.java
+@@ -16,6 +16,6 @@ public class CommandBungee extends Command
+     @Override
+     public void execute(CommandSender sender, String[] args)
+     {
+-        sender.sendMessage( ChatColor.BLUE + "This server is running Waterfall version " + ProxyServer.getInstance().getVersion() + " by md_5" );
++        sender.sendMessage( ChatColor.BLUE + "This server is running lightfall version " + ProxyServer.getInstance().getVersion() + " by md_5" );
+     }
+ }
+diff --git a/proxy/src/main/java/net/md_5/bungee/conf/YamlConfig.java b/proxy/src/main/java/net/md_5/bungee/conf/YamlConfig.java
+index 0644b8cd..5f42857c 100644
+--- a/proxy/src/main/java/net/md_5/bungee/conf/YamlConfig.java
++++ b/proxy/src/main/java/net/md_5/bungee/conf/YamlConfig.java
+@@ -227,7 +227,7 @@ public class YamlConfig implements ConfigurationAdapter
+             Map<String, Object> val = entry.getValue();
+             String name = entry.getKey();
+             String addr = get( "address", "localhost:25565", val );
+-            String motd = ChatColor.translateAlternateColorCodes( '&', get( "motd", "&1Just another Waterfall - Forced Host", val ) );
++            String motd = ChatColor.translateAlternateColorCodes( '&', get( "motd", "&1This server has super lightfall power - Forced Host", val ) );
+             boolean restricted = get( "restricted", false, val );
+             SocketAddress address = Util.getAddr( addr );
+             ServerInfo info = ProxyServer.getInstance().constructServerInfo( name, address, motd, restricted );
+diff --git a/proxy/src/main/java/net/md_5/bungee/module/JenkinsModuleSource.java b/proxy/src/main/java/net/md_5/bungee/module/JenkinsModuleSource.java
+index 338c30d3..211fbbaf 100644
+--- a/proxy/src/main/java/net/md_5/bungee/module/JenkinsModuleSource.java
++++ b/proxy/src/main/java/net/md_5/bungee/module/JenkinsModuleSource.java
+@@ -22,7 +22,7 @@ public class JenkinsModuleSource implements ModuleSource
+                 "https://papermc.io/api/v2/projects/%1$s/versions/%2$s/builds/%3$s/downloads/%4$s-%2$s-%3$s.jar",
+                 "waterfall",
+                 net.md_5.bungee.api.ProxyServer.getInstance().getVersion().split(":")[2].split("-")[0],
+-                version.getBuild(),
++                443,
+                 module.getName()
+             );
+             URL website = new URL( url );
+diff --git a/query/pom.xml b/query/pom.xml
+index dea7d85f..349d41e3 100644
+--- a/query/pom.xml
++++ b/query/pom.xml
+@@ -4,18 +4,17 @@
+     <modelVersion>4.0.0</modelVersion>
+ 
+     <parent>
+-        <groupId>io.github.waterfallmc</groupId>
+-        <artifactId>waterfall-parent</artifactId>
++        <groupId>io.izzel.lightfall</groupId>
++        <artifactId>lightfall-parent</artifactId>
+         <version>1.17-R0.1-SNAPSHOT</version>
+         <relativePath>../pom.xml</relativePath>
+     </parent>
+ 
+-    <groupId>io.github.waterfallmc</groupId>
+-    <artifactId>waterfall-query</artifactId>
++    <artifactId>lightfall-query</artifactId>
+     <version>1.17-R0.1-SNAPSHOT</version>
+     <packaging>jar</packaging>
+ 
+-    <name>Waterfall-Query</name>
++    <name>lightfall-Query</name>
+     <description>Minecraft query implementation based on the Waterfall API.</description>
+ 
+     <dependencies>
+@@ -26,7 +25,7 @@
+             <scope>compile</scope>
+         </dependency>
+         <dependency>
+-            <groupId>io.github.waterfallmc</groupId>
++            <groupId>io.izzel.lightfall</groupId>
+             <artifactId>waterfall-api</artifactId>
+             <version>${project.version}</version>
+             <scope>compile</scope>
+-- 
+2.30.1.windows.1
+

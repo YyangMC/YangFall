@@ -1,0 +1,24 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.jinguanzj.yangfall</groupId>
+    <artifactId>Yangfall</artifactId>
+    <version>dev-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>lightfall-Super</name>
+    <description>Super project for Waterfall.</description>
+    <url>https://github.com/ArclightPowered/lightfall</url>
+
+
+
+    <build>
+        <defaultGoal>clean install</defaultGoal>
+    </build>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+</project>
