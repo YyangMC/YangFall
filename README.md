@@ -1,2 +1,2 @@
 # YangFall
-A Minecraft BC
+A fork of Lightfall for YangMC.
